@@ -1,0 +1,18 @@
+[
+  {
+    "id": "1774700282842",
+    "title": "Burasi Sana Ozel",
+    "slug": "burasi-sana-ozel",
+    "summary": "sadece sen paylasabiliyorsun",
+    "content": "sifresi falan var",
+    "publishedAt": "2026-03-28"
+  },
+  {
+    "id": "welcome-post",
+    "title": "Hukuk Bürosuna Hoş Geldiniz",
+    "slug": "hukuk-burosuna-hos-geldiniz",
+    "summary": "Bu web sitesinde dava alanları, hizmetler ve güncel hukuki yazı paylaşımları yer alacaktır.",
+    "content": "Bu ilk yazıda ofis hakkında genel bilgiler paylaşıyoruz. Burayı düzenli olarak güncelleyeceğiz.",
+    "publishedAt": "2026-03-24"
+  }
+]

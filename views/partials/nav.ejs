@@ -1,0 +1,26 @@
+<header class="site-header">
+  <div class="container nav-inner">
+    <a class="brand" href="/">Av. Enes Aktaş</a>
+    <button
+      type="button"
+      class="nav-toggle"
+      id="nav-toggle"
+      aria-label="Menüyü aç veya kapat"
+      aria-expanded="false"
+      aria-controls="site-nav"
+    >
+      <span class="nav-toggle__bar" aria-hidden="true"></span>
+      <span class="nav-toggle__bar" aria-hidden="true"></span>
+      <span class="nav-toggle__bar" aria-hidden="true"></span>
+    </button>
+    <div class="nav-backdrop" id="nav-backdrop" hidden aria-hidden="true"></div>
+    <nav id="site-nav" class="site-nav" aria-label="Ana menü">
+      <a class="<%= currentPath === '/' ? 'active' : '' %>" href="/">Ana Sayfa</a>
+      <a class="<%= currentPath === '/about' ? 'active' : '' %>" href="/about">Hakkında</a>
+      <a class="<%= currentPath === '/services' ? 'active' : '' %>" href="/services">Hizmetler</a>
+      <a class="<%= currentPath.startsWith('/blog') ? 'active' : '' %>" href="/blog">Blog</a>
+      <a class="<%= currentPath === '/contact' ? 'active' : '' %>" href="/contact">İletişim</a>
+      <a class="<%= currentPath === '/admin' || currentPath.startsWith('/admin') ? 'active' : '' %>" href="/admin">Yönetim</a>
+    </nav>
+  </div>
+</header>

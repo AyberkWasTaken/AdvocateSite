@@ -1,0 +1,25 @@
+{
+  "name": "lawyer-website",
+  "version": "1.0.0",
+  "description": "Static-like advocate website with simple blog admin.",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "keywords": [
+    "express",
+    "ejs",
+    "lawyer",
+    "blog"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "ejs": "^5.0.1",
+    "express": "^5.2.1",
+    "nodemailer": "^8.0.4"
+  }
+}

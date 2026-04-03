@@ -1,0 +1,11 @@
+<%- include("../partials/head") %>
+<%- include("../partials/nav") %>
+<main class="container narrow">
+  <article class="card card--post">
+    <p class="card__meta"><%= post.publishedAt %></p>
+    <h1 class="card__title"><%= post.title %></h1>
+    <p><%= post.content %></p>
+  </article>
+  <p><a class="link-arrow" href="/blog">← Tüm yazılar</a></p>
+</main>
+<%- include("../partials/footer") %>

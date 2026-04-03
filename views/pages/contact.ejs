@@ -1,0 +1,31 @@
+<%- include("../partials/head") %>
+<%- include("../partials/nav") %>
+<main class="container narrow">
+  <h1>İletişim</h1>
+  <p>Aşağıdaki formu doldurarak bize ulaşabilirsiniz.</p>
+
+  <% if (success) { %>
+  <div class="alert success">Mesajınız e-posta ile gönderildi. En kısa sürede size dönüş yapılacaktır.</div>
+  <% } %>
+
+  <% if (error === 'validation') { %>
+  <div class="alert error">Lütfen tüm alanları doldurun.</div>
+  <% } %>
+
+  <% if (error === 'config') { %>
+  <div class="alert error">İletişim e-postası şu an yapılandırılmamış. Lütfen daha sonra tekrar deneyin veya doğrudan arayın.</div>
+  <% } %>
+
+  <% if (error === 'send') { %>
+  <div class="alert error">Mesaj gönderilirken bir sorun oluştu. Bir süre sonra tekrar deneyin veya telefon ile ulaşın.</div>
+  <% } %>
+
+  <form method="POST" action="/contact" class="form-card">
+    <label>Ad Soyad<input name="name" type="text" required autocomplete="name" /></label>
+    <label>Telefon<input name="phone" type="tel" required autocomplete="tel" /></label>
+    <label>E-posta<input name="email" type="email" required autocomplete="email" /></label>
+    <label>Mesaj<textarea name="message" rows="5" required></textarea></label>
+    <button class="btn" type="submit">Gönder</button>
+  </form>
+</main>
+<%- include("../partials/footer") %>

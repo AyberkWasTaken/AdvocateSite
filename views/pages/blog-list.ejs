@@ -1,0 +1,16 @@
+<%- include("../partials/head") %>
+<%- include("../partials/nav") %>
+<main class="container">
+  <h1 class="section-heading">Blog</h1>
+  <div class="grid three">
+    <% posts.forEach((post) => { %>
+    <article class="card card--post">
+      <p class="card__meta"><%= post.publishedAt %></p>
+      <h3 class="card__title"><%= post.title %></h3>
+      <p><%= post.summary %></p>
+      <a class="card__link" href="/blog/<%= post.slug %>">Devamını Oku</a>
+    </article>
+    <% }) %>
+  </div>
+</main>
+<%- include("../partials/footer") %>

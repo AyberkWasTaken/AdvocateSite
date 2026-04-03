@@ -1,0 +1,32 @@
+<%- include("../partials/head") %>
+<%- include("../partials/nav") %>
+<main class="container">
+  <h1>Admin Panel - Blog Yonetimi</h1>
+  <p>Buradan yeni blog yazısı ekleyebilirsiniz.</p>
+  <div class="alert success admin-panel-note">
+    Bu panel sifre ile korunur. Sifrenizi baskalariyla paylasmayin.
+  </div>
+
+  <% if (error) { %>
+  <div class="alert error"><%= error %></div>
+  <% } %>
+
+  <form class="form-card" method="POST" action="/admin/posts">
+    <label>Başlık<input name="title" type="text" value="<%= formValues.title || '' %>" required /></label>
+    <label>Özet<textarea name="summary" rows="3" required><%= formValues.summary || '' %></textarea></label>
+    <label>İçerik<textarea name="content" rows="8" required><%= formValues.content || '' %></textarea></label>
+    <button class="btn" type="submit">Yazıyı Ekle</button>
+  </form>
+
+  <h2>Mevcut Yazılar</h2>
+  <div class="grid three">
+    <% posts.forEach((post) => { %>
+    <article class="card">
+      <h3><%= post.title %></h3>
+      <small><%= post.publishedAt %></small>
+      <p><%= post.summary %></p>
+    </article>
+    <% }) %>
+  </div>
+</main>
+<%- include("../partials/footer") %>

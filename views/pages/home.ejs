@@ -1,0 +1,46 @@
+<%- include("../partials/head") %>
+<%- include("../partials/nav") %>
+
+<main class="container main-content">
+  <section class="hero hero--home">
+    <p class="hero__eyebrow">Hukuki danışmanlık</p>
+    <h1 class="hero__title">Güvenilir hukuki danışmanlık</h1>
+    <p class="hero__lead">
+      Bireysel ve kurumsal uyuşmazlıklarda profesyonel destek. Randevu ve ön görüşme için iletişime geçebilirsiniz.
+    </p>
+    <div class="hero__actions">
+      <a class="btn btn--primary" href="/contact">İletişime geçin</a>
+      <a class="btn btn--ghost" href="/services">Hizmetler</a>
+    </div>
+  </section>
+
+  <section class="grid two">
+    <article class="card card--feature">
+      <h2 class="card__title">Çalışma alanları</h2>
+      <p>Aile hukuku, iş hukuku, ceza hukuku ve icra–iflas takibi.</p>
+    </article>
+    <article class="card card--feature">
+      <h2 class="card__title">Şeffaf iletişim</h2>
+      <p>Süreç ve seçenekler hakkında anlaşılır bilgilendirme.</p>
+    </article>
+  </section>
+
+  <section class="section-block">
+    <div class="section-title-row">
+      <h2 class="section-heading">Son yazılar</h2>
+      <a class="link-arrow" href="/blog">Tümünü gör</a>
+    </div>
+    <div class="grid three">
+      <% posts.forEach((post) => { %>
+      <article class="card card--post">
+        <p class="card__meta"><%= post.publishedAt %></p>
+        <h3 class="card__title"><%= post.title %></h3>
+        <p><%= post.summary %></p>
+        <a class="card__link" href="/blog/<%= post.slug %>">Devamını oku</a>
+      </article>
+      <% }) %>
+    </div>
+  </section>
+</main>
+
+<%- include("../partials/footer") %>
