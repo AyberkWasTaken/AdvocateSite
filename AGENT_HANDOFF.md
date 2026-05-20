@@ -6,6 +6,16 @@ Built by the user's brother-in-law's request, maintained by the user (cagla.ba06
 **Domain:** https://avukatenes.av.tr (hosted on Vercel)
 Office: Alanönü Mah. Gayret Sok. Demirci Apt. No:2 D:11, 26030 Odunpazarı / Eskişehir
 
+## OPEN REMINDERS — Raise these with the user at the start of every session
+
+| # | Reminder | Status |
+|---|---|---|
+| 1 | **Domain DNS** — Point `avukatenes.av.tr` to Vercel. In the Vercel dashboard: Settings → Domains → Add `avukatenes.av.tr`. Then add the A record (`76.76.21.21`) or CNAME (`cname.vercel-dns.com`) in the Eskişehir Barosu / domain registrar DNS panel. Also set `SITE_URL=https://avukatenes.av.tr` in Vercel → Settings → Environment Variables. | NOT DONE |
+| 2 | **Blog database** — Blog posts are stored in `data/blogPosts.json`. Vercel's filesystem is read-only in production, so posts created via the admin panel on the live site **will not save**. Need to replace `utils/blogStore.js` with a real database (recommended: Vercel KV, Supabase, or PlanetScale). Until then, posts can only be added by editing `blogPosts.json` locally and pushing to GitHub. | NOT DONE |
+| 3 | **SEO — manual actions** — Technical SEO is done in code. Remaining actions for Enes Aktaş: (a) create Google Business Profile at business.google.com, (b) collect Google reviews from clients, (c) submit sitemap at Google Search Console using `https://avukatenes.av.tr/sitemap.xml`, (d) write blog posts targeting keywords like "Eskişehir boşanma davası". See SEO table below for full list. | NOT DONE |
+
+---
+
 ## Tech Stack
 | Layer | Technology |
 |---|---|
@@ -102,11 +112,10 @@ public/
 
 ## Placeholder Content to Replace
 The following values are **placeholders** that need real information from Av. Enes Aktaş:
-- Phone: `+90 5XX XXX XX XX` (in `footer.ejs` and `contact.ejs`)
-- Email: `info@enesaktashukuk.com` (in `footer.ejs` and `contact.ejs`)
-- Address: `İstanbul` (in `footer.ejs` and `contact.ejs`) — replace with full address
+- Phone: `+90 5XX XXX XX XX` (in `footer.ejs`, `contact.ejs`, and Schema.org in `head.ejs`)
+- Email: `info@enesaktashukuk.com` (in `footer.ejs`, `contact.ejs`, and Schema.org in `head.ejs`)
 - Bar registration number (not yet shown — could be added to `footer.ejs` `.footer-bar-info`)
-- About page bio — currently generic placeholder Turkish text
+- About page bio — currently generic placeholder Turkish text; Enes Aktaş should provide real text
 
 ## What Was Changed (last major refactor)
 - **nav.ejs**: Removed public admin link (admin accesses `/admin` directly).
