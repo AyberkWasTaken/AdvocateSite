@@ -57,7 +57,9 @@ export function adminBasicAuth() {
   return (req, res, next) => {
     if (!creds) {
       return res.status(503).render("pages/admin-setup-needed", {
-        title: "Yonetim Ayari Eksik",
+        title: "Yönetim Ayarı Eksik",
+        description: "",
+        noindex: true,
         currentPath: req.path
       });
     }

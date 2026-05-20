@@ -7,7 +7,10 @@ const router = express.Router();
 router.get("/", (req, res) => {
   const posts = listPosts().slice(0, 3);
   res.render("pages/home", {
-    title: "Ana Sayfa",
+    title: "Eskişehir Avukat",
+    description:
+      "Eskişehir'de güvenilir hukuki danışmanlık. Av. Enes Aktaş; aile, iş, ceza ve icra hukuku alanlarında bireysel ve kurumsal müvekkillere profesyonel avukatlık hizmeti sunmaktadır.",
+    noindex: false,
     posts,
     currentPath: req.path
   });
@@ -16,13 +19,19 @@ router.get("/", (req, res) => {
 router.get("/about", (req, res) => {
   res.render("pages/about", {
     title: "Hakkında",
+    description:
+      "Eskişehir Barosu üyesi Av. Enes Aktaş hakkında bilgi edinin. Aile, iş, ceza ve icra hukuku alanlarında deneyimli avukatlık ve hukuki danışmanlık hizmeti.",
+    noindex: false,
     currentPath: req.path
   });
 });
 
 router.get("/services", (req, res) => {
   res.render("pages/services", {
-    title: "Hizmetler",
+    title: "Hizmet Alanları",
+    description:
+      "Eskişehir'de aile hukuku, iş hukuku, ceza hukuku, icra-iflas, gayrimenkul ve tüketici hukuku alanlarında profesyonel avukatlık hizmeti. Av. Enes Aktaş, Odunpazarı.",
+    noindex: false,
     currentPath: req.path
   });
 });
@@ -32,6 +41,9 @@ router.get("/contact", (req, res) => {
   const error = req.query.error || null;
   res.render("pages/contact", {
     title: "İletişim",
+    description:
+      "Eskişehir avukat Av. Enes Aktaş ile iletişime geçin. Odunpazarı ofisimizde yüz yüze veya telefon ile hukuki danışmanlık randevusu alın.",
+    noindex: false,
     success,
     error,
     currentPath: req.path
@@ -71,6 +83,9 @@ router.get("/blog", (req, res) => {
   const posts = listPosts();
   res.render("pages/blog-list", {
     title: "Blog",
+    description:
+      "Av. Enes Aktaş hukuk blogu. Eskişehir'de güncel hukuki bilgiler, dava süreçleri ve haklarınız hakkında makaleler.",
+    noindex: false,
     posts,
     currentPath: req.path
   });
@@ -81,15 +96,49 @@ router.get("/blog/:slug", (req, res) => {
   if (!post) {
     return res.status(404).render("pages/404", {
       title: "Yazı Bulunamadı",
+      description: "",
+      noindex: true,
       currentPath: req.path
     });
   }
 
   res.render("pages/blog-detail", {
     title: post.title,
+    description: post.summary,
+    noindex: false,
     post,
     currentPath: req.path
   });
+});
+
+router.get("/sitemap.xml", (req, res) => {
+  const posts = listPosts();
+  const base = process.env.SITE_URL || `${req.protocol}://${req.get("host")}`;
+
+  const staticPages = [
+    { loc: "/", priority: "1.0", changefreq: "weekly" },
+    { loc: "/about", priority: "0.8", changefreq: "monthly" },
+    { loc: "/services", priority: "0.9", changefreq: "monthly" },
+    { loc: "/blog", priority: "0.7", changefreq: "weekly" },
+    { loc: "/contact", priority: "0.8", changefreq: "monthly" }
+  ];
+
+  const postPages = posts.map((post) => ({
+    loc: `/blog/${post.slug}`,
+    priority: "0.6",
+    changefreq: "never",
+    lastmod: post.publishedAt
+  }));
+
+  const entries = [...staticPages, ...postPages]
+    .map(
+      (p) =>
+        `  <url>\n    <loc>${base}${p.loc}</loc>\n    <changefreq>${p.changefreq}</changefreq>\n    <priority>${p.priority}</priority>${p.lastmod ? `\n    <lastmod>${p.lastmod}</lastmod>` : ""}\n  </url>`
+    )
+    .join("\n");
+
+  res.set("Content-Type", "application/xml");
+  res.send(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>`);
 });
 
 export default router;

@@ -13,6 +13,8 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.locals.siteUrl = process.env.SITE_URL || "https://avukatenes.av.tr";
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 

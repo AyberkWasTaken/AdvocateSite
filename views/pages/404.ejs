@@ -1,8 +1,11 @@
 <%- include("../partials/head") %>
 <%- include("../partials/nav") %>
-<main class="container narrow">
-  <h1>404</h1>
-  <p>Aradığınız sayfa bulunamadı.</p>
-  <a class="btn" href="/">Ana Sayfaya Dön</a>
+<main class="container narrow main-content">
+  <div class="error-page">
+    <p class="error-code">404</p>
+    <h1 class="error-title">Sayfa bulunamadı</h1>
+    <p class="error-lead">Aradığınız sayfa taşınmış, silinmiş ya da hiç var olmamış olabilir.</p>
+    <a class="btn btn--primary-dark" href="/">Ana sayfaya dön</a>
+  </div>
 </main>
 <%- include("../partials/footer") %>

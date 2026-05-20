@@ -1,10 +1,92 @@
 <%- include("../partials/head") %>
 <%- include("../partials/nav") %>
-<main class="container">
-  <h1>Hakkımızda</h1>
-  <p>
-    Avukatlık ofisiimizin vizyonu, her müvekkile anlaşılır ve güvenilir bir
-    hukuki süreç sunmaktır. 
-  </p>
+<main class="container main-content">
+
+  <section class="about-intro">
+    <div class="about-intro__content">
+      <p class="hero__eyebrow">Hukuk Ofisi</p>
+      <h1 class="about-intro__title">Av. Enes Aktaş</h1>
+      <p class="about-intro__subtitle">Eskişehir Barosu Üyesi &mdash; Avukatlık &amp; Hukuki Danışmanlık</p>
+      <p class="about-intro__lead">
+        Bireysel ve kurumsal müvekkillerime aile, iş, ceza ve icra hukukunda
+        kapsamlı danışmanlık ve savunuculuk hizmeti sunuyorum.
+        Her davada müvekkil menfaatini ön planda tutarak şeffaf ve sonuç odaklı bir çalışma yürütüyorum.
+      </p>
+      <a class="btn btn--outline-primary" href="/contact">Randevu alın</a>
+    </div>
+    <div class="about-intro__badge" aria-hidden="true">
+      <span class="about-avatar-initial">EA</span>
+    </div>
+  </section>
+
+  <section class="section-block">
+    <div class="grid two about-bio-grid">
+      <div>
+        <h2 class="section-heading">Profesyonel Biyografi</h2>
+        <div class="about-bio">
+          <p>
+            Hukuk fakültesini başarıyla tamamlayan Av. Enes Aktaş, Eskişehir Barosu'na kayıt olarak
+            kariyerine başlamıştır. Mesleğinin ilk gününden itibaren bireysel ve kurumsal
+            müvekkillerin farklı hukuki ihtiyaçlarına odaklanmıştır.
+          </p>
+          <p>
+            Aile hukuku, iş hukuku, ceza hukuku ve icra-iflas takibi alanlarında kapsamlı deneyim
+            edinen Av. Aktaş, her davada müvekkil menfaatlerini en üst düzeyde gözeten,
+            proaktif ve şeffaf bir hizmet anlayışını benimsemiştir.
+          </p>
+          <p>
+            Mahkeme süreçlerinde etkin savunuculuğun yanı sıra, uyuşmazlıkların dava öncesinde
+            çözülmesini de öncelikli bir yaklaşım olarak benimseyen ofisimiz, müvekkillerine
+            hem zaman hem de maddi açıdan avantaj sağlamaktadır.
+          </p>
+        </div>
+      </div>
+      <div class="credential-card">
+        <h3 class="credential-card__title">Özet Bilgiler</h3>
+        <ul class="credential-list">
+          <li>
+            <span class="credential-label">Baro</span>
+            <span class="credential-value">Eskişehir Barosu</span>
+          </li>
+          <li>
+            <span class="credential-label">Uzmanlık Alanları</span>
+            <span class="credential-value">Aile, İş, Ceza, İcra ve İflas Hukuku</span>
+          </li>
+          <li>
+            <span class="credential-label">Konum</span>
+            <span class="credential-value">İstanbul</span>
+          </li>
+          <li>
+            <span class="credential-label">Çalışma Dili</span>
+            <span class="credential-value">Türkçe</span>
+          </li>
+        </ul>
+        <a class="btn btn--full" href="/contact">İletişime geçin</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block">
+    <h2 class="section-heading">Çalışma İlkelerimiz</h2>
+    <p class="section-lead">Her müvekkile özel, dürüst ve sonuç odaklı bir hizmet taahhüt ediyoruz.</p>
+    <div class="grid three">
+      <div class="value-card">
+        <div class="value-card__num" aria-hidden="true">01</div>
+        <h3 class="value-card__title">Güven</h3>
+        <p>Müvekkil ile kurulan güven ilişkisi, başarılı bir hukuki sürecin temelidir. Paylaşılan tüm bilgiler sıkı bir gizlilik ilkesiyle korunur.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-card__num" aria-hidden="true">02</div>
+        <h3 class="value-card__title">Şeffaflık</h3>
+        <p>Dava sürecinin her aşamasında müvekkili bilgilendiririz. Karmaşık hukuki kavramları anlaşılır bir dille aktarmayı öncelik olarak benimseriz.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-card__num" aria-hidden="true">03</div>
+        <h3 class="value-card__title">Etkin Savunuculuk</h3>
+        <p>Müvekkilin menfaatlerini korumak için gerekli her hukuki aracı kararlılık ve özenle kullanırız.</p>
+      </div>
+    </div>
+  </section>
+
 </main>
 <%- include("../partials/footer") %>

@@ -1,11 +1,17 @@
 <%- include("../partials/head") %>
 <%- include("../partials/nav") %>
-<main class="container narrow">
-  <article class="card card--post">
+<main class="container narrow main-content">
+  <article class="post-article">
     <p class="card__meta"><%= post.publishedAt %></p>
-    <h1 class="card__title"><%= post.title %></h1>
-    <p><%= post.content %></p>
+    <h1 class="post-title"><%= post.title %></h1>
+    <div class="post-content">
+      <% post.content.split('\n\n').forEach(function(para) { %>
+        <% if (para.trim()) { %>
+          <p><%= para.trim() %></p>
+        <% } %>
+      <% }) %>
+    </div>
   </article>
-  <p><a class="link-arrow" href="/blog">← Tüm yazılar</a></p>
+  <p><a class="link-arrow" href="/blog">&larr; Tüm yazılar</a></p>
 </main>
 <%- include("../partials/footer") %>

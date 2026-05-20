@@ -1,11 +1,90 @@
 <%- include("../partials/head") %>
 <%- include("../partials/nav") %>
-<main class="container">
-  <h1>Hizmetler</h1>
-  <div class="grid three">
-    <article class="card"><h3>Aile Hukuku</h3><p>Boşanma, velayet, nafaka.</p></article>
-    <article class="card"><h3>İş Hukuku</h3><p>İşe iade, kıdem-ihbar davaları.</p></article>
-    <article class="card"><h3>Ceza Hukuku</h3><p>Soruşturma ve kovuşturma süreçleri.</p></article>
+<main class="container main-content">
+
+  <div class="page-header">
+    <h1>Hizmet Alanları</h1>
+    <p class="section-lead">Bireysel ve kurumsal müvekkillerimize geniş bir hukuk yelpazesinde profesyonel destek sunuyoruz.</p>
   </div>
+
+  <div class="grid three">
+    <article class="card service-card">
+      <div class="service-card__mark" aria-hidden="true">&sect;</div>
+      <h2 class="service-card__title">Aile Hukuku</h2>
+      <p class="service-card__desc">Boşanma, velayet, nafaka ve mal rejimi tasfiyesi davalarında müvekkilin haklarını öncelikli tutarak etkili temsil sağlarız.</p>
+      <ul class="service-list">
+        <li>Anlaşmalı / çekişmeli boşanma</li>
+        <li>Velayet ve kişisel ilişki</li>
+        <li>Nafaka belirleme ve artırım</li>
+        <li>Mal paylaşımı ve tasfiye</li>
+      </ul>
+    </article>
+
+    <article class="card service-card">
+      <div class="service-card__mark" aria-hidden="true">&sect;</div>
+      <h2 class="service-card__title">İş Hukuku</h2>
+      <p class="service-card__desc">İşçi ve işveren uyuşmazlıklarında, iş akdinden doğan haklar ve yükümlülükler konusunda kapsamlı hukuki destek sunuyoruz.</p>
+      <ul class="service-list">
+        <li>İşe iade davaları</li>
+        <li>Kıdem ve ihbar tazminatı</li>
+        <li>Mobbing ve iş kazası</li>
+        <li>İş sözleşmesi düzenleme</li>
+      </ul>
+    </article>
+
+    <article class="card service-card">
+      <div class="service-card__mark" aria-hidden="true">&sect;</div>
+      <h2 class="service-card__title">Ceza Hukuku</h2>
+      <p class="service-card__desc">Soruşturma ve kovuşturma süreçlerinde sanık ya da mağdur sıfatıyla müvekkilin en güçlü hukuki savunmasını üstleniyoruz.</p>
+      <ul class="service-list">
+        <li>Soruşturma aşaması savunması</li>
+        <li>Ceza davalarında temsil</li>
+        <li>Mağdur vekilliği</li>
+        <li>İtiraz ve temyiz süreçleri</li>
+      </ul>
+    </article>
+
+    <article class="card service-card">
+      <div class="service-card__mark" aria-hidden="true">&sect;</div>
+      <h2 class="service-card__title">İcra ve İflas</h2>
+      <p class="service-card__desc">Alacak takibi, itirazın iptali ve borçlu hakları konularında hem alacaklı hem borçlu tarafında etkin çözümler üretiriz.</p>
+      <ul class="service-list">
+        <li>İlamlı / ilamsız icra takibi</li>
+        <li>İtirazın iptali davası</li>
+        <li>Menfi tespit ve istirdat</li>
+        <li>İflas ve konkordato</li>
+      </ul>
+    </article>
+
+    <article class="card service-card">
+      <div class="service-card__mark" aria-hidden="true">&sect;</div>
+      <h2 class="service-card__title">Gayrimenkul Hukuku</h2>
+      <p class="service-card__desc">Tapu uyuşmazlıklarından kira hukukuna, kat mülkiyetinden kamulaştırma davalarına kadar tüm gayrimenkul süreçlerinde hizmet veriyoruz.</p>
+      <ul class="service-list">
+        <li>Tapu iptal ve tescil</li>
+        <li>Kira uyuşmazlıkları</li>
+        <li>Kat mülkiyeti ve irtifak</li>
+        <li>Kamulaştırma davaları</li>
+      </ul>
+    </article>
+
+    <article class="card service-card">
+      <div class="service-card__mark" aria-hidden="true">&sect;</div>
+      <h2 class="service-card__title">Tüketici ve Ticaret Hukuku</h2>
+      <p class="service-card__desc">Tüketici hakları ihlallerinden ticari uyuşmazlıklara kadar geniş bir alanda bireysel ve kurumsal müvekkillere hizmet sunuyoruz.</p>
+      <ul class="service-list">
+        <li>Ayıplı mal ve hizmet davaları</li>
+        <li>Banka ve finansal uyuşmazlıklar</li>
+        <li>Ticari sözleşme ihtilafları</li>
+        <li>Tüketici hakem heyeti</li>
+      </ul>
+    </article>
+  </div>
+
+  <div class="services-cta">
+    <p>Hukuki durumunuzu değerlendirmek için ilk görüşmeyi talep edebilirsiniz.</p>
+    <a class="btn btn--primary-dark" href="/contact">İletişime geçin</a>
+  </div>
+
 </main>
 <%- include("../partials/footer") %>

@@ -5,6 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#0c4a6e" />
     <title><%= title %> | Av. Enes Aktaş</title>
+
+    <!-- SEO -->
+    <meta name="description" content="<%= description %>" />
+    <meta name="robots" content="<%= noindex ? 'noindex, nofollow' : 'index, follow' %>" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="tr_TR" />
+    <meta property="og:site_name" content="Av. Enes Aktaş" />
+    <meta property="og:title" content="<%= title %> | Av. Enes Aktaş" />
+    <meta property="og:description" content="<%= description %>" />
+    <% if (siteUrl) { %><meta property="og:url" content="<%= siteUrl %><%= currentPath %>" /><% } %>
+
+    <!-- Schema.org: Local law firm — helps Google local search in Eskişehir -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LegalService",
+      "name": "Av. Enes Aktaş",
+      "description": "Eskişehir'de aile, iş, ceza ve icra hukuku alanlarında avukatlık ve hukuki danışmanlık hizmeti.",
+      "url": "<%= siteUrl || 'https://avukatenes.av.tr' %>",
+      "telephone": "+905XXXXXXXXX",
+      "email": "info@enesaktashukuk.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Alanönü Mahallesi, Gayret Sokak Demirci Apartmanı No: 2 Daire: 11",
+        "addressLocality": "Odunpazarı",
+        "addressRegion": "Eskişehir",
+        "postalCode": "26030",
+        "addressCountry": "TR"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Eskişehir"
+      },
+      "knowsAbout": [
+        "Aile Hukuku",
+        "İş Hukuku",
+        "Ceza Hukuku",
+        "İcra ve İflas Hukuku",
+        "Gayrimenkul Hukuku",
+        "Tüketici Hukuku"
+      ],
+      "memberOf": {
+        "@type": "Organization",
+        "name": "Eskişehir Barosu"
+      }
+    }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

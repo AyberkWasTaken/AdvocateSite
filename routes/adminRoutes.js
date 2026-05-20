@@ -6,6 +6,8 @@ const router = express.Router();
 router.get("/", (req, res) => {
   res.render("admin/dashboard", {
     title: "Admin Panel",
+    description: "",
+    noindex: true,
     posts: listPosts(),
     error: null,
     formValues: {},
@@ -19,8 +21,10 @@ router.post("/posts", (req, res) => {
   if (!title || !summary || !content) {
     return res.status(400).render("admin/dashboard", {
       title: "Admin Panel",
+      description: "",
+      noindex: true,
       posts: listPosts(),
-      error: "Tum alanlar zorunludur.",
+      error: "Tüm alanlar zorunludur.",
       formValues: { title, summary, content },
       currentPath: req.baseUrl
     });
@@ -32,6 +36,8 @@ router.post("/posts", (req, res) => {
   } catch (err) {
     res.status(400).render("admin/dashboard", {
       title: "Admin Panel",
+      description: "",
+      noindex: true,
       posts: listPosts(),
       error: err.message,
       formValues: { title, summary, content },
