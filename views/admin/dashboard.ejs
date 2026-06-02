@@ -45,19 +45,35 @@
       <ul class="admin-post-list">
         <% posts.forEach((post) => { %>
         <li class="admin-post-item">
-          <div class="admin-post-info">
-            <strong><%= post.title %></strong>
-            <span><%= post.publishedAt %></span>
+          <div class="admin-post-row">
+            <div class="admin-post-info">
+              <strong><%= post.title %></strong>
+              <span><%= post.publishedAt %></span>
+            </div>
+            <div class="admin-post-actions">
+              <button type="button" class="btn-expand" onclick="togglePost(this)">Detay ▾</button>
+              <a href="/blog/<%= post.slug %>" target="_blank" class="btn-view">Görüntüle</a>
+              <form method="POST" action="/admin/posts/<%= post.id %>/delete" onsubmit="return confirm('Bu yazıyı silmek istediğinize emin misiniz?')">
+                <button type="submit" class="btn-delete">Sil</button>
+              </form>
+            </div>
           </div>
-          <div class="admin-post-actions">
-            <a href="/blog/<%= post.slug %>" target="_blank" class="btn-view">Görüntüle</a>
-            <form method="POST" action="/admin/posts/<%= post.id %>/delete" onsubmit="return confirm('Bu yazıyı silmek istediğinize emin misiniz?')">
-              <button type="submit" class="btn-delete">Sil</button>
-            </form>
+          <div class="admin-post-detail">
+            <p class="admin-post-summary"><%= post.summary %></p>
+            <hr class="admin-post-divider" />
+            <div class="admin-post-content"><%= post.content %></div>
           </div>
         </li>
         <% }) %>
       </ul>
+
+      <script>
+        function togglePost(btn) {
+          const detail = btn.closest('.admin-post-item').querySelector('.admin-post-detail');
+          const open = detail.classList.toggle('open');
+          btn.textContent = open ? 'Kapat ▴' : 'Detay ▾';
+        }
+      </script>
       <% } %>
     </section>
   </div>

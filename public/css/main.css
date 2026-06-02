@@ -1474,19 +1474,55 @@ a.contact-info-value:hover {
 .admin-post-item {
   background: var(--surface);
   border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(12,74,110,.06);
+  overflow: hidden;
+}
+
+.admin-post-row {
   padding: 1rem 1.25rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  box-shadow: 0 2px 8px rgba(12,74,110,.06);
   flex-wrap: wrap;
+}
+
+.admin-post-detail {
+  display: none;
+  padding: 1rem 1.25rem 1.25rem;
+  border-top: 1px solid var(--theme-4);
+  background: #f8fafc;
+}
+
+.admin-post-detail.open {
+  display: block;
+}
+
+.admin-post-summary {
+  font-size: .9rem;
+  color: var(--muted);
+  margin: 0 0 .75rem;
+  font-style: italic;
+}
+
+.admin-post-divider {
+  border: none;
+  border-top: 1px solid var(--theme-5);
+  margin: .75rem 0;
+}
+
+.admin-post-content {
+  font-size: .9rem;
+  color: var(--text);
+  white-space: pre-wrap;
+  line-height: 1.7;
 }
 
 .admin-post-info {
   display: flex;
   flex-direction: column;
   gap: .2rem;
+  min-width: 0;
 }
 
 .admin-post-info strong {
@@ -1503,6 +1539,23 @@ a.contact-info-value:hover {
   display: flex;
   gap: .5rem;
   align-items: center;
+}
+
+.btn-expand {
+  padding: .4rem .9rem;
+  background: var(--theme-4);
+  color: var(--theme-1);
+  border: 1.5px solid var(--theme-5);
+  border-radius: 7px;
+  font-size: .8rem;
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.btn-expand:hover {
+  background: var(--theme-5);
 }
 
 .btn-view {
