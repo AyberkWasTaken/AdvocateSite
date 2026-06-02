@@ -10,7 +10,7 @@ Office: Alanönü Mah. Gayret Sok. Demirci Apt. No:2 D:11, 26030 Odunpazarı / E
 
 | # | Reminder | Status |
 |---|---|---|
-| 1 | **Domain DNS** — Point `avukatenes.av.tr` to Vercel. In the Vercel dashboard: Settings → Domains → Add `avukatenes.av.tr`. Then add the A record (`76.76.21.21`) or CNAME (`cname.vercel-dns.com`) in the Eskişehir Barosu / domain registrar DNS panel. Also set `SITE_URL=https://avukatenes.av.tr` in Vercel → Settings → Environment Variables. | NOT DONE |
+| 1 | **Domain DNS** — A record (`216.198.79.1`) and CNAME (`www` → `cfaf2b4c7f969497.vercel-dns-017.com`) added in METUnic panel. `SITE_URL=https://www.avukatenes.av.tr` set in Vercel env vars. | DONE |
 | 2 | **Blog database** — Blog posts are stored in `data/blogPosts.json`. Vercel's filesystem is read-only in production, so posts created via the admin panel on the live site **will not save**. Need to replace `utils/blogStore.js` with a real database (recommended: Vercel KV, Supabase, or PlanetScale). Until then, posts can only be added by editing `blogPosts.json` locally and pushing to GitHub. | NOT DONE |
 | 3 | **SEO — manual actions** — Technical SEO is done in code. Remaining actions for Enes Aktaş: (a) create Google Business Profile at business.google.com, (b) collect Google reviews from clients, (c) submit sitemap at Google Search Console using `https://avukatenes.av.tr/sitemap.xml`, (d) write blog posts targeting keywords like "Eskişehir boşanma davası". See SEO table below for full list. | NOT DONE |
 

@@ -4,8 +4,8 @@ import { isMailConfigured, sendContactEmail } from "../utils/mail.js";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  const posts = listPosts().slice(0, 3);
+router.get("/", async (req, res) => {
+  const posts = (await listPosts()).slice(0, 3);
   res.render("pages/home", {
     title: "Eskişehir Avukat",
     description:
@@ -79,8 +79,8 @@ router.post("/contact", async (req, res) => {
   }
 });
 
-router.get("/blog", (req, res) => {
-  const posts = listPosts();
+router.get("/blog", async (req, res) => {
+  const posts = await listPosts();
   res.render("pages/blog-list", {
     title: "Blog",
     description:
@@ -91,8 +91,8 @@ router.get("/blog", (req, res) => {
   });
 });
 
-router.get("/blog/:slug", (req, res) => {
-  const post = getPostBySlug(req.params.slug);
+router.get("/blog/:slug", async (req, res) => {
+  const post = await getPostBySlug(req.params.slug);
   if (!post) {
     return res.status(404).render("pages/404", {
       title: "Yazı Bulunamadı",
@@ -111,8 +111,8 @@ router.get("/blog/:slug", (req, res) => {
   });
 });
 
-router.get("/sitemap.xml", (req, res) => {
-  const posts = listPosts();
+router.get("/sitemap.xml", async (req, res) => {
+  const posts = await listPosts();
   const base = process.env.SITE_URL || `${req.protocol}://${req.get("host")}`;
 
   const staticPages = [

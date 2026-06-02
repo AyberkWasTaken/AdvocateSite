@@ -1,19 +1,9 @@
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import { createClient } from "@supabase/supabase-js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const dataPath = path.join(__dirname, "..", "data", "blogPosts.json");
-
-function readPosts() {
-  const raw = fs.readFileSync(dataPath, "utf-8");
-  return JSON.parse(raw);
-}
-
-function writePosts(posts) {
-  fs.writeFileSync(dataPath, JSON.stringify(posts, null, 2), "utf-8");
-}
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SECRET_KEY
+);
 
 function createSlug(value) {
   return value
@@ -24,34 +14,52 @@ function createSlug(value) {
     .replace(/-+/g, "-");
 }
 
-function listPosts() {
-  return readPosts().sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
-}
-
-function getPostBySlug(slug) {
-  return readPosts().find((post) => post.slug === slug);
-}
-
-function createPost({ title, summary, content }) {
-  const posts = readPosts();
-  const slug = createSlug(title);
-
-  if (posts.some((post) => post.slug === slug)) {
-    throw new Error("Ayni baslikta bir yazi zaten var.");
-  }
-
-  const newPost = {
-    id: `${Date.now()}`,
-    title,
-    slug,
-    summary,
-    content,
-    publishedAt: new Date().toISOString().slice(0, 10)
+function mapPost(row) {
+  return {
+    id: row.id,
+    title: row.title,
+    slug: row.slug,
+    summary: row.summary,
+    content: row.content,
+    publishedAt: row.published_at,
   };
+}
 
-  posts.unshift(newPost);
-  writePosts(posts);
-  return newPost;
+async function listPosts() {
+  const { data, error } = await supabase
+    .from("blog_posts")
+    .select("*")
+    .order("published_at", { ascending: false });
+  if (error) throw error;
+  return data.map(mapPost);
+}
+
+async function getPostBySlug(slug) {
+  const { data, error } = await supabase
+    .from("blog_posts")
+    .select("*")
+    .eq("slug", slug)
+    .single();
+  if (error) return null;
+  return mapPost(data);
+}
+
+async function createPost({ title, summary, content }) {
+  const slug = createSlug(title);
+  const id = `${Date.now()}`;
+  const publishedAt = new Date().toISOString().slice(0, 10);
+
+  const { data, error } = await supabase
+    .from("blog_posts")
+    .insert({ id, title, slug, summary, content, published_at: publishedAt })
+    .select()
+    .single();
+
+  if (error) {
+    if (error.code === "23505") throw new Error("Ayni baslikta bir yazi zaten var.");
+    throw error;
+  }
+  return mapPost(data);
 }
 
 export { listPosts, getPostBySlug, createPost };
