@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <rect width="120" height="120" rx="18" fill="#0c4a6e"/>
+  <rect x="1" y="1" width="118" height="118" rx="17" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+  <text
+    x="60" y="79"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="54"
+    font-weight="700"
+    fill="white"
+    text-anchor="middle"
+    letter-spacing="-1"
+  >EA</text>
+</svg>

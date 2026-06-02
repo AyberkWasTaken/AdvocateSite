@@ -142,6 +142,9 @@ img {
   text-decoration: none;
   color: var(--theme-1);
   font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
   font-size: clamp(1.05rem, 4vw, 1.2rem);
   letter-spacing: -0.02em;
   min-height: var(--tap-min);
@@ -1539,6 +1542,13 @@ a.contact-info-value:hover {
   display: flex;
   gap: .5rem;
   align-items: center;
+}
+
+.brand-logo {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 6px;
 }
 
 .btn-expand {

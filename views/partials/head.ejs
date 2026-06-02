@@ -17,6 +17,11 @@
     <meta property="og:title" content="<%= title %> | Av. Enes Aktaş" />
     <meta property="og:description" content="<%= description %>" />
     <% if (siteUrl) { %><meta property="og:url" content="<%= siteUrl %><%= currentPath %>" /><% } %>
+    <meta property="og:image" content="<%= siteUrl || 'https://www.avukatenes.av.tr' %>/images/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="<%= siteUrl || 'https://www.avukatenes.av.tr' %>/images/og-image.png" />
 
     <!-- Schema.org: Local law firm — helps Google local search in Eskişehir -->
     <script type="application/ld+json">

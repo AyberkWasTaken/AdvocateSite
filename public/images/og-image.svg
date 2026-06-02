@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#0c4a6e"/>
+      <stop offset="100%" stop-color="#082f49"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Top accent bar -->
+  <rect x="0" y="0" width="1200" height="6" fill="#0ea5e9"/>
+
+  <!-- Subtle grid pattern -->
+  <line x1="0" y1="630" x2="600" y2="0" stroke="rgba(255,255,255,0.03)" stroke-width="120"/>
+  <line x1="400" y1="630" x2="1000" y2="0" stroke="rgba(255,255,255,0.03)" stroke-width="120"/>
+
+  <!-- Logo mark box -->
+  <rect x="100" y="220" width="170" height="170" rx="22" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+  <text
+    x="185" y="337"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="82"
+    font-weight="700"
+    fill="white"
+    text-anchor="middle"
+  >EA</text>
+
+  <!-- Vertical divider -->
+  <rect x="316" y="228" width="2" height="154" rx="1" fill="rgba(255,255,255,0.22)"/>
+
+  <!-- Main name -->
+  <text
+    x="348" y="305"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="72"
+    font-weight="700"
+    fill="white"
+  >Av. Enes Aktaş</text>
+
+  <!-- Subtitle -->
+  <text
+    x="350" y="358"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="26"
+    fill="#93c5fd"
+    letter-spacing="4"
+  >AVUKAT  •  ESKİŞEHİR</text>
+
+  <!-- Bottom accent -->
+  <rect x="100" y="540" width="100" height="3" rx="2" fill="#0ea5e9"/>
+  <rect x="210" y="540" width="40" height="3" rx="2" fill="rgba(14,165,233,0.4)"/>
+</svg>
