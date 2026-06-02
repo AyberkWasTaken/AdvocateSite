@@ -2,3 +2,4 @@ node_modules/
 data/adminCredentials.json
 .env
 .vercel
+AGENT_HANDOFF.md
