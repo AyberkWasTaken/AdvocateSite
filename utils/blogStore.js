@@ -62,9 +62,36 @@ async function createPost({ title, summary, content }) {
   return mapPost(data);
 }
 
+async function updatePost(id, { title, summary, content }) {
+  const slug = createSlug(title);
+
+  const { data, error } = await supabase
+    .from("blog_posts")
+    .update({ title, slug, summary, content })
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) {
+    if (error.code === "23505") throw new Error("Ayni baslikta bir yazi zaten var.");
+    throw error;
+  }
+  return mapPost(data);
+}
+
+async function getPostById(id) {
+  const { data, error } = await supabase
+    .from("blog_posts")
+    .select("*")
+    .eq("id", id)
+    .single();
+  if (error) return null;
+  return mapPost(data);
+}
+
 async function deletePost(id) {
   const { error } = await supabase.from("blog_posts").delete().eq("id", id);
   if (error) throw error;
 }
 
-export { listPosts, getPostBySlug, createPost, deletePost };
+export { listPosts, getPostBySlug, getPostById, createPost, updatePost, deletePost };

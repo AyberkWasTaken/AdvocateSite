@@ -1558,6 +1558,35 @@ a.contact-info-value:hover {
   background: var(--theme-5);
 }
 
+.btn-edit {
+  padding: .4rem .9rem;
+  background: transparent;
+  color: var(--theme-1);
+  border: 1.5px solid var(--theme-1);
+  border-radius: 7px;
+  font-size: .8rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background .2s, color .2s;
+}
+
+.btn-edit:hover {
+  background: var(--theme-1);
+  color: #fff;
+}
+
+.admin-edit-form {
+  max-width: 720px;
+}
+
+.admin-edit-actions {
+  display: flex;
+  gap: .75rem;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: .5rem;
+}
+
 .btn-view {
   padding: .4rem .9rem;
   background: transparent;

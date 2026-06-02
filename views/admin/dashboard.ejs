@@ -52,6 +52,7 @@
             </div>
             <div class="admin-post-actions">
               <button type="button" class="btn-expand" onclick="togglePost(this)">Detay ▾</button>
+              <a href="/admin/posts/<%= post.id %>/edit" class="btn-edit">Düzenle</a>
               <a href="/blog/<%= post.slug %>" target="_blank" class="btn-view">Görüntüle</a>
               <form method="POST" action="/admin/posts/<%= post.id %>/delete" onsubmit="return confirm('Bu yazıyı silmek istediğinize emin misiniz?')">
                 <button type="submit" class="btn-delete">Sil</button>

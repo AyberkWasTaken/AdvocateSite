@@ -1,5 +1,5 @@
 import express from "express";
-import { listPosts, createPost, deletePost } from "../utils/blogStore.js";
+import { listPosts, getPostById, createPost, updatePost, deletePost } from "../utils/blogStore.js";
 
 const router = express.Router();
 
@@ -74,6 +74,48 @@ router.post("/posts", requireAdmin, async (req, res) => {
       posts: await listPosts(),
       error: err.message,
       formValues: { title, summary, content },
+      currentPath: "/admin"
+    });
+  }
+});
+
+router.get("/posts/:id/edit", requireAdmin, async (req, res) => {
+  const post = await getPostById(req.params.id);
+  if (!post) return res.redirect("/admin");
+  res.render("admin/edit", {
+    title: "Yazıyı Düzenle",
+    description: "",
+    noindex: true,
+    post,
+    error: null,
+    currentPath: "/admin"
+  });
+});
+
+router.post("/posts/:id/edit", requireAdmin, async (req, res) => {
+  const { title, summary, content } = req.body;
+  if (!title || !summary || !content) {
+    const post = await getPostById(req.params.id);
+    return res.status(400).render("admin/edit", {
+      title: "Yazıyı Düzenle",
+      description: "",
+      noindex: true,
+      post: { ...post, title, summary, content },
+      error: "Tüm alanlar zorunludur.",
+      currentPath: "/admin"
+    });
+  }
+  try {
+    await updatePost(req.params.id, { title, summary, content });
+    res.redirect("/admin");
+  } catch (err) {
+    const post = await getPostById(req.params.id);
+    res.status(400).render("admin/edit", {
+      title: "Yazıyı Düzenle",
+      description: "",
+      noindex: true,
+      post: { ...post, title, summary, content },
+      error: err.message,
       currentPath: "/admin"
     });
   }

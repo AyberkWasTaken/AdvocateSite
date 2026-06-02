@@ -1,0 +1,37 @@
+<%- include("../partials/head") %>
+<%- include("../partials/nav") %>
+<main class="container admin-dashboard">
+
+  <div class="admin-header">
+    <div>
+      <h1>Yazıyı Düzenle</h1>
+      <p class="section-lead">Değişiklikler kaydedildiğinde yayına alınır.</p>
+    </div>
+    <a href="/admin" class="btn-logout">← Geri Dön</a>
+  </div>
+
+  <% if (error) { %>
+  <div class="admin-alert-error"><%= error %></div>
+  <% } %>
+
+  <form class="admin-form admin-edit-form" method="POST" action="/admin/posts/<%= post.id %>/edit">
+    <label>
+      Başlık
+      <input name="title" type="text" value="<%= post.title %>" required />
+    </label>
+    <label>
+      Özet
+      <textarea name="summary" rows="3" required><%= post.summary %></textarea>
+    </label>
+    <label>
+      İçerik
+      <textarea name="content" rows="14" required><%= post.content %></textarea>
+    </label>
+    <div class="admin-edit-actions">
+      <a href="/admin" class="btn-view">İptal</a>
+      <button type="submit" class="btn-publish">Değişiklikleri Kaydet</button>
+    </div>
+  </form>
+
+</main>
+<%- include("../partials/footer") %>
