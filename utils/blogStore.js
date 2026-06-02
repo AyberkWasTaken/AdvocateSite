@@ -62,4 +62,9 @@ async function createPost({ title, summary, content }) {
   return mapPost(data);
 }
 
-export { listPosts, getPostBySlug, createPost };
+async function deletePost(id) {
+  const { error } = await supabase.from("blog_posts").delete().eq("id", id);
+  if (error) throw error;
+}
+
+export { listPosts, getPostBySlug, createPost, deletePost };

@@ -1,9 +1,44 @@
 import express from "express";
-import { listPosts, createPost } from "../utils/blogStore.js";
+import { listPosts, createPost, deletePost } from "../utils/blogStore.js";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+function requireAdmin(req, res, next) {
+  if (req.session && req.session.isAdmin) return next();
+  res.redirect("/admin/login");
+}
+
+router.get("/login", (req, res) => {
+  if (req.session && req.session.isAdmin) return res.redirect("/admin");
+  res.render("admin/login", {
+    title: "Giriş",
+    description: "",
+    noindex: true,
+    error: null,
+    currentPath: "/admin/login"
+  });
+});
+
+router.post("/login", (req, res) => {
+  const { username, password } = req.body;
+  if (username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD) {
+    req.session.isAdmin = true;
+    return res.redirect("/admin");
+  }
+  res.status(401).render("admin/login", {
+    title: "Giriş",
+    description: "",
+    noindex: true,
+    error: "Kullanıcı adı veya şifre hatalı.",
+    currentPath: "/admin/login"
+  });
+});
+
+router.post("/logout", (req, res) => {
+  req.session.destroy(() => res.redirect("/admin/login"));
+});
+
+router.get("/", requireAdmin, async (req, res) => {
   res.render("admin/dashboard", {
     title: "Admin Panel",
     description: "",
@@ -11,13 +46,12 @@ router.get("/", async (req, res) => {
     posts: await listPosts(),
     error: null,
     formValues: {},
-    currentPath: req.baseUrl
+    currentPath: "/admin"
   });
 });
 
-router.post("/posts", async (req, res) => {
+router.post("/posts", requireAdmin, async (req, res) => {
   const { title, summary, content } = req.body;
-
   if (!title || !summary || !content) {
     return res.status(400).render("admin/dashboard", {
       title: "Admin Panel",
@@ -26,10 +60,9 @@ router.post("/posts", async (req, res) => {
       posts: await listPosts(),
       error: "Tüm alanlar zorunludur.",
       formValues: { title, summary, content },
-      currentPath: req.baseUrl
+      currentPath: "/admin"
     });
   }
-
   try {
     await createPost({ title, summary, content });
     res.redirect("/admin");
@@ -41,9 +74,18 @@ router.post("/posts", async (req, res) => {
       posts: await listPosts(),
       error: err.message,
       formValues: { title, summary, content },
-      currentPath: req.baseUrl
+      currentPath: "/admin"
     });
   }
+});
+
+router.post("/posts/:id/delete", requireAdmin, async (req, res) => {
+  try {
+    await deletePost(req.params.id);
+  } catch (err) {
+    console.error("[admin] Silme hatası:", err.message);
+  }
+  res.redirect("/admin");
 });
 
 export default router;

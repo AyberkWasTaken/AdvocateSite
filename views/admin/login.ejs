@@ -1,0 +1,25 @@
+<%- include("../partials/head") %>
+<main class="admin-login">
+  <div class="admin-login-card">
+    <div class="admin-login-brand">Av. Enes Aktaş</div>
+    <p class="admin-login-sub">Yönetim Paneli</p>
+
+    <% if (error) { %>
+    <div class="alert-error"><%= error %></div>
+    <% } %>
+
+    <form method="POST" action="/admin/login" class="admin-login-form">
+      <label>
+        Kullanıcı Adı
+        <input name="username" type="text" required autocomplete="username" />
+      </label>
+      <label>
+        Şifre
+        <input name="password" type="password" required autocomplete="current-password" />
+      </label>
+      <button type="submit">Giriş Yap</button>
+    </form>
+  </div>
+</main>
+</body>
+</html>
