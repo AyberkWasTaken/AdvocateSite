@@ -43,7 +43,7 @@
   );
   --hero-text-subtle: rgb(255 255 255 / 0.82);
   --nav-active-bg: color-mix(in srgb, var(--theme-3) 16%, transparent);
-  --backdrop-overlay: color-mix(in srgb, var(--theme-1) 52%, transparent);
+  --backdrop-overlay: rgba(0, 0, 0, 0.6);
   --focus-ring: color-mix(in srgb, var(--theme-3) 45%, transparent);
   --input-focus-shadow: color-mix(in srgb, var(--theme-3) 28%, transparent);
   --shadow: 0 4px 24px color-mix(in srgb, var(--theme-1) 12%, transparent);
@@ -139,6 +139,8 @@ img {
 }
 
 .brand {
+  position: relative;
+  z-index: 60;
   text-decoration: none;
   color: var(--theme-1);
   font-weight: 700;
@@ -152,8 +154,67 @@ img {
   align-items: center;
 }
 
+/* Call button — quick tap-to-call for mobile visitors */
+.nav-call {
+  position: relative;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: var(--tap-min);
+  min-width: var(--tap-min);
+  padding: 0 0.85rem;
+  border-radius: 999px;
+  background: var(--theme-1);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  transition: background 0.2s ease;
+}
+
+.nav-call:hover,
+.nav-call:focus-visible {
+  background: var(--theme-2);
+}
+
+.nav-call svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.nav-call__text {
+  display: none;
+}
+
+@media (min-width: 420px) {
+  .nav-call__text {
+    display: inline;
+  }
+}
+
+/* Mobile gets a call button, desktop/large tablets get a mail button instead */
+.nav-call--mail {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .nav-call--phone {
+    display: none;
+  }
+
+  .nav-call--mail {
+    display: inline-flex;
+  }
+}
+
 /* Hamburger */
 .nav-toggle {
+  position: relative;
+  z-index: 60;
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
@@ -210,6 +271,17 @@ body.nav-open .site-nav {
   z-index: 50;
 }
 
+@media (max-width: 767px) {
+  body.nav-open .site-nav {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    padding: 0.4rem;
+    margin-top: 0.4rem;
+  }
+}
+
 .site-nav a {
   display: flex;
   align-items: center;
@@ -232,6 +304,82 @@ body.nav-open .site-nav {
   background: var(--nav-active-bg);
   color: var(--theme-1);
   font-weight: 600;
+}
+
+/* İletişim menu item — one continuous highlighted bar with a nested call button, so it catches the eye in the mobile popup menu */
+.site-nav-highlight {
+  display: flex;
+  align-items: center;
+  background: var(--theme-3);
+  border-radius: 12px;
+  overflow: hidden;
+  padding-right: 0.3rem;
+}
+
+.site-nav a.site-nav-contact {
+  flex: 1;
+  background: none;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.site-nav a.site-nav-contact:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.site-nav a.site-nav-quick-call {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  min-height: 34px;
+  padding: 0;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  transition: background 0.2s ease;
+}
+
+.site-nav a.site-nav-quick-call:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.site-nav a.site-nav-quick-call svg {
+  width: 16px;
+  height: 16px;
+}
+
+@media (min-width: 768px) {
+  /* Highlight is only meant for the mobile popup menu — desktop and large tablets keep the plain inline nav, no icon */
+  .site-nav-highlight {
+    display: contents;
+  }
+
+  .site-nav a.site-nav-quick-call {
+    display: none;
+  }
+
+  .site-nav a.site-nav-contact {
+    flex: initial;
+    background: none;
+    color: color-mix(in srgb, var(--theme-2) 42%, var(--muted));
+    font-weight: 500;
+  }
+
+  .site-nav a.site-nav-contact:hover {
+    background: color-mix(in srgb, var(--theme-4) 80%, var(--theme-6));
+    color: var(--theme-1);
+  }
+
+  .site-nav a.site-nav-contact.active {
+    background: var(--nav-active-bg);
+    color: var(--theme-1);
+    font-weight: 600;
+  }
 }
 
 .nav-backdrop {
