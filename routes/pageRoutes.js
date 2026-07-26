@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
 
 router.get("/about", (req, res) => {
   res.render("pages/about", {
-    title: "Hakkında",
+    title: "Eskişehir Avukat Hakkında | Deneyim ve Uzmanlık",
     description:
       "Eskişehir Barosu üyesi Av. Enes Aktaş hakkında bilgi edinin. Aile, iş, ceza ve icra hukuku alanlarında deneyimli avukatlık ve hukuki danışmanlık hizmeti.",
     noindex: false,
@@ -28,7 +28,7 @@ router.get("/about", (req, res) => {
 
 router.get("/services", (req, res) => {
   res.render("pages/services", {
-    title: "Hizmet Alanları",
+    title: "Eskişehir Avukatlık Hizmetleri | Boşanma, İş, Ceza, İcra Hukuku",
     description:
       "Eskişehir'de aile hukuku, iş hukuku, ceza hukuku, icra-iflas, gayrimenkul ve tüketici hukuku alanlarında profesyonel avukatlık hizmeti. Av. Enes Aktaş, Odunpazarı.",
     noindex: false,
@@ -40,7 +40,7 @@ router.get("/contact", (req, res) => {
   const success = req.query.success === "1";
   const error = req.query.error || null;
   res.render("pages/contact", {
-    title: "İletişim",
+    title: "Eskişehir Avukat İletişim | Randevu Alın",
     description:
       "Eskişehir avukat Av. Enes Aktaş ile iletişime geçin. Odunpazarı ofisimizde yüz yüze veya telefon ile hukuki danışmanlık randevusu alın.",
     noindex: false,
@@ -82,7 +82,7 @@ router.post("/contact", async (req, res) => {
 router.get("/blog", async (req, res) => {
   const posts = await listPosts();
   res.render("pages/blog-list", {
-    title: "Blog",
+    title: "Eskişehir Hukuk Blogu | Güncel Hukuki Bilgiler",
     description:
       "Av. Enes Aktaş hukuk blogu. Eskişehir'de güncel hukuki bilgiler, dava süreçleri ve haklarınız hakkında makaleler.",
     noindex: false,

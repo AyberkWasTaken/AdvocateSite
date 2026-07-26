@@ -42,3 +42,15 @@
     if (e.key === "Escape") close();
   });
 })();
+
+(function () {
+  const bubble = document.getElementById("whatsapp-bubble");
+  if (!bubble) return;
+
+  setTimeout(function () {
+    bubble.classList.add("is-visible");
+    setTimeout(function () {
+      bubble.classList.remove("is-visible");
+    }, 5000);
+  }, 1200);
+})();

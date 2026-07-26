@@ -28,16 +28,30 @@ function mapPost(row) {
   };
 }
 
+// In-memory cache for the full post list — no fixed expiry, since the data only
+// changes when create/update/delete run below, and those clear it immediately.
+let cachedPosts = null;
+
+function invalidateCache() {
+  cachedPosts = null;
+}
+
 async function listPosts() {
+  if (cachedPosts) return cachedPosts;
   const { data, error } = await supabase
     .from("blog_posts")
     .select("*")
     .order("published_at", { ascending: false });
   if (error) throw error;
-  return data.map(mapPost);
+  cachedPosts = data.map(mapPost);
+  return cachedPosts;
 }
 
 async function getPostBySlug(slug) {
+  if (cachedPosts) {
+    const cached = cachedPosts.find((post) => post.slug === slug);
+    if (cached) return cached;
+  }
   const { data, error } = await supabase
     .from("blog_posts")
     .select("*")
@@ -62,6 +76,7 @@ async function createPost({ title, summary, content }) {
     if (error.code === "23505") throw new Error("Ayni baslikta bir yazi zaten var.");
     throw error;
   }
+  invalidateCache();
   return mapPost(data);
 }
 
@@ -79,10 +94,15 @@ async function updatePost(id, { title, summary, content }) {
     if (error.code === "23505") throw new Error("Ayni baslikta bir yazi zaten var.");
     throw error;
   }
+  invalidateCache();
   return mapPost(data);
 }
 
 async function getPostById(id) {
+  if (cachedPosts) {
+    const cached = cachedPosts.find((post) => post.id === id);
+    if (cached) return cached;
+  }
   const { data, error } = await supabase
     .from("blog_posts")
     .select("*")
@@ -95,6 +115,7 @@ async function getPostById(id) {
 async function deletePost(id) {
   const { error } = await supabase.from("blog_posts").delete().eq("id", id);
   if (error) throw error;
+  invalidateCache();
 }
 
 export { listPosts, getPostBySlug, getPostById, createPost, updatePost, deletePost };

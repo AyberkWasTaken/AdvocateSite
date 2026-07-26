@@ -956,14 +956,23 @@ code {
 
 .about-intro__badge {
   flex-shrink: 0;
-  width: 120px;
-  height: 120px;
+  width: 200px;
+  height: 250px;
   background: var(--bg-hero);
-  border-radius: 50%;
+  border-radius: 20px;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: var(--shadow-lg);
+}
+
+.about-intro__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
 }
 
 .about-avatar-initial {
@@ -975,8 +984,8 @@ code {
 
 @media (min-width: 640px) {
   .about-intro__badge {
-    width: 150px;
-    height: 150px;
+    width: 320px;
+    height: 400px;
   }
   .about-avatar-initial {
     font-size: 2.75rem;
@@ -1778,4 +1787,97 @@ a.contact-info-value:hover {
 .btn-delete:hover {
   background: #dc2626;
   color: #fff;
+}
+
+.whatsapp-widget {
+  position: fixed;
+  right: 1.25rem;
+  bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.65rem;
+}
+
+.whatsapp-float {
+  flex-shrink: 0;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.whatsapp-float:hover,
+.whatsapp-float:focus-visible {
+  transform: scale(1.06);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.whatsapp-float svg {
+  width: 30px;
+  height: 30px;
+}
+
+.whatsapp-bubble {
+  position: relative;
+  background: #fff;
+  color: #111827;
+  padding: 0.6rem 0.95rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+  transform-origin: right center;
+  transform: translateX(55px) scale(0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+}
+
+.whatsapp-bubble::after {
+  content: "";
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform: translateY(-50%);
+  border-width: 6px 0 6px 6px;
+  border-style: solid;
+  border-color: transparent transparent transparent #fff;
+}
+
+.whatsapp-bubble.is-visible {
+  transform: translateX(0) scale(1);
+  opacity: 1;
+}
+
+@media (max-width: 480px) {
+  .whatsapp-widget {
+    right: 1rem;
+    bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .whatsapp-float {
+    width: 52px;
+    height: 52px;
+  }
+
+  .whatsapp-float svg {
+    width: 27px;
+    height: 27px;
+  }
+
+  .whatsapp-bubble {
+    font-size: 0.8rem;
+    padding: 0.5rem 0.8rem;
+  }
 }
