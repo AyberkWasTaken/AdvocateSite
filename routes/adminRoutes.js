@@ -1,5 +1,10 @@
 import express from "express";
 import { listPosts, getPostById, createPost, updatePost, deletePost } from "../utils/blogStore.js";
+import { BLOG_CATEGORIES, categoryLabel } from "../utils/blogCategories.js";
+
+function withCategoryLabels(posts) {
+  return posts.map((post) => ({ ...post, categoryLabel: categoryLabel(post.category) }));
+}
 
 const router = express.Router();
 
@@ -43,7 +48,8 @@ router.get("/", requireAdmin, async (req, res) => {
     title: "Admin Panel",
     description: "",
     noindex: true,
-    posts: await listPosts(),
+    posts: withCategoryLabels(await listPosts()),
+    categories: BLOG_CATEGORIES,
     error: null,
     formValues: {},
     currentPath: "/admin"
@@ -51,29 +57,31 @@ router.get("/", requireAdmin, async (req, res) => {
 });
 
 router.post("/posts", requireAdmin, async (req, res) => {
-  const { title, summary, content } = req.body;
-  if (!title || !summary || !content) {
+  const { title, summary, content, category } = req.body;
+  if (!title || !summary || !content || !category) {
     return res.status(400).render("admin/dashboard", {
       title: "Admin Panel",
       description: "",
       noindex: true,
-      posts: await listPosts(),
+      posts: withCategoryLabels(await listPosts()),
+      categories: BLOG_CATEGORIES,
       error: "Tüm alanlar zorunludur.",
-      formValues: { title, summary, content },
+      formValues: { title, summary, content, category },
       currentPath: "/admin"
     });
   }
   try {
-    await createPost({ title, summary, content });
+    await createPost({ title, summary, content, category });
     res.redirect("/admin");
   } catch (err) {
     res.status(400).render("admin/dashboard", {
       title: "Admin Panel",
       description: "",
       noindex: true,
-      posts: await listPosts(),
+      posts: withCategoryLabels(await listPosts()),
+      categories: BLOG_CATEGORIES,
       error: err.message,
-      formValues: { title, summary, content },
+      formValues: { title, summary, content, category },
       currentPath: "/admin"
     });
   }
@@ -87,26 +95,28 @@ router.get("/posts/:id/edit", requireAdmin, async (req, res) => {
     description: "",
     noindex: true,
     post,
+    categories: BLOG_CATEGORIES,
     error: null,
     currentPath: "/admin"
   });
 });
 
 router.post("/posts/:id/edit", requireAdmin, async (req, res) => {
-  const { title, summary, content } = req.body;
-  if (!title || !summary || !content) {
+  const { title, summary, content, category } = req.body;
+  if (!title || !summary || !content || !category) {
     const post = await getPostById(req.params.id);
     return res.status(400).render("admin/edit", {
       title: "Yazıyı Düzenle",
       description: "",
       noindex: true,
-      post: { ...post, title, summary, content },
+      post: { ...post, title, summary, content, category },
+      categories: BLOG_CATEGORIES,
       error: "Tüm alanlar zorunludur.",
       currentPath: "/admin"
     });
   }
   try {
-    await updatePost(req.params.id, { title, summary, content });
+    await updatePost(req.params.id, { title, summary, content, category });
     res.redirect("/admin");
   } catch (err) {
     const post = await getPostById(req.params.id);
@@ -114,7 +124,8 @@ router.post("/posts/:id/edit", requireAdmin, async (req, res) => {
       title: "Yazıyı Düzenle",
       description: "",
       noindex: true,
-      post: { ...post, title, summary, content },
+      post: { ...post, title, summary, content, category },
+      categories: BLOG_CATEGORIES,
       error: err.message,
       currentPath: "/admin"
     });

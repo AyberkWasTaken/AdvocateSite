@@ -2,15 +2,45 @@
 <%- include("../partials/nav") %>
 <main class="container">
   <h1 class="section-heading">Eskişehir Hukuk Blogu</h1>
+
+  <form class="blog-filter-bar" method="GET" action="/blog">
+    <label class="blog-filter-field">
+      <span>Konu</span>
+      <select name="category" onchange="this.form.submit()">
+        <option value="all" <%= selectedCategory === 'all' ? 'selected' : '' %>>Tüm konular</option>
+        <% categories.forEach((c) => { %>
+        <option value="<%= c.value %>" <%= selectedCategory === c.value ? 'selected' : '' %>><%= c.label %></option>
+        <% }) %>
+      </select>
+    </label>
+    <label class="blog-filter-field">
+      <span>Sırala</span>
+      <select name="sort" onchange="this.form.submit()">
+        <option value="newest" <%= selectedSort === 'newest' ? 'selected' : '' %>>En yeni</option>
+        <option value="oldest" <%= selectedSort === 'oldest' ? 'selected' : '' %>>En eski</option>
+      </select>
+    </label>
+    <noscript><button type="submit" class="btn btn--primary-dark">Uygula</button></noscript>
+  </form>
+
+  <% if (posts.length === 0) { %>
+  <div class="empty-state">
+    <p>Bu konuda henüz yazı bulunmuyor.</p>
+  </div>
+  <% } else { %>
   <div class="grid three">
     <% posts.forEach((post) => { %>
     <article class="card card--post">
-      <p class="card__meta"><%= post.publishedAt %></p>
+      <p class="card__meta">
+        <%= post.publishedAt %>
+        <% if (post.categoryLabel) { %> · <span class="category-pill"><%= post.categoryLabel %></span><% } %>
+      </p>
       <h3 class="card__title"><%= post.title %></h3>
       <p><%= post.summary %></p>
       <a class="card__link" href="/blog/<%= post.slug %>">Devamını Oku</a>
     </article>
     <% }) %>
   </div>
+  <% } %>
 </main>
 <%- include("../partials/footer") %>

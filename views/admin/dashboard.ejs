@@ -26,6 +26,15 @@
           <input name="title" type="text" value="<%= formValues.title || '' %>" required placeholder="Yazı başlığı" />
         </label>
         <label>
+          Konu
+          <select name="category" required>
+            <option value="" disabled <%= !formValues.category ? 'selected' : '' %>>Konu seçin</option>
+            <% categories.forEach((c) => { %>
+            <option value="<%= c.value %>" <%= formValues.category === c.value ? 'selected' : '' %>><%= c.label %></option>
+            <% }) %>
+          </select>
+        </label>
+        <label>
           Özet
           <textarea name="summary" rows="3" required placeholder="Kısa açıklama (blog listesinde görünür)"><%= formValues.summary || '' %></textarea>
         </label>
@@ -48,7 +57,10 @@
           <div class="admin-post-row">
             <div class="admin-post-info">
               <strong><%= post.title %></strong>
-              <span><%= post.publishedAt %></span>
+              <span>
+                <%= post.publishedAt %>
+                <% if (post.categoryLabel) { %> · <span class="category-pill"><%= post.categoryLabel %></span><% } %>
+              </span>
             </div>
             <div class="admin-post-actions">
               <button type="button" class="btn-expand" onclick="togglePost(this)">Detay ▾</button>

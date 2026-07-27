@@ -2,7 +2,10 @@
 <%- include("../partials/nav") %>
 <main class="container narrow main-content">
   <article class="post-article">
-    <p class="card__meta"><%= post.publishedAt %></p>
+    <p class="card__meta">
+      <%= post.publishedAt %>
+      <% if (post.categoryLabel) { %> · <span class="category-pill"><%= post.categoryLabel %></span><% } %>
+    </p>
     <h1 class="post-title"><%= post.title %></h1>
     <div class="post-content">
       <% post.content.split('\n\n').forEach(function(para) { %>

@@ -20,6 +20,15 @@
       <input name="title" type="text" value="<%= post.title %>" required />
     </label>
     <label>
+      Konu
+      <select name="category" required>
+        <option value="" disabled <%= !post.category ? 'selected' : '' %>>Konu seçin</option>
+        <% categories.forEach((c) => { %>
+        <option value="<%= c.value %>" <%= post.category === c.value ? 'selected' : '' %>><%= c.label %></option>
+        <% }) %>
+      </select>
+    </label>
+    <label>
       Özet
       <textarea name="summary" rows="3" required><%= post.summary %></textarea>
     </label>

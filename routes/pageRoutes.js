@@ -1,5 +1,6 @@
 import express from "express";
 import { listPosts, getPostBySlug } from "../utils/blogStore.js";
+import { BLOG_CATEGORIES, categoryLabel } from "../utils/blogCategories.js";
 import { isMailConfigured, sendContactEmail } from "../utils/mail.js";
 
 const router = express.Router();
@@ -80,13 +81,30 @@ router.post("/contact", async (req, res) => {
 });
 
 router.get("/blog", async (req, res) => {
-  const posts = await listPosts();
+  const allPosts = await listPosts();
+
+  const category = BLOG_CATEGORIES.some((c) => c.value === req.query.category)
+    ? req.query.category
+    : "all";
+  const sort = req.query.sort === "oldest" ? "oldest" : "newest";
+
+  let posts = category === "all" ? allPosts : allPosts.filter((p) => p.category === category);
+  posts = [...posts].sort((a, b) =>
+    sort === "oldest"
+      ? a.publishedAt.localeCompare(b.publishedAt)
+      : b.publishedAt.localeCompare(a.publishedAt)
+  );
+  posts = posts.map((post) => ({ ...post, categoryLabel: categoryLabel(post.category) }));
+
   res.render("pages/blog-list", {
     title: "Eskişehir Hukuk Blogu | Güncel Hukuki Bilgiler",
     description:
       "Av. Enes Aktaş hukuk blogu. Eskişehir'de güncel hukuki bilgiler, dava süreçleri ve haklarınız hakkında makaleler.",
     noindex: false,
     posts,
+    categories: BLOG_CATEGORIES,
+    selectedCategory: category,
+    selectedSort: sort,
     currentPath: req.path
   });
 });
@@ -106,7 +124,7 @@ router.get("/blog/:slug", async (req, res) => {
     title: post.title,
     description: post.summary,
     noindex: false,
-    post,
+    post: { ...post, categoryLabel: categoryLabel(post.category) },
     currentPath: req.path
   });
 });
