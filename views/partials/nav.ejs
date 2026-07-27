@@ -24,7 +24,6 @@
       <span class="nav-toggle__bar" aria-hidden="true"></span>
       <span class="nav-toggle__bar" aria-hidden="true"></span>
     </button>
-    <div class="nav-backdrop" id="nav-backdrop" hidden aria-hidden="true"></div>
     <nav id="site-nav" class="site-nav" aria-label="Ana menü">
       <a class="<%= currentPath === '/' ? 'active' : '' %>" href="/">Ana Sayfa</a>
       <a class="<%= currentPath === '/about' ? 'active' : '' %>" href="/about">Hakkında</a>
@@ -38,4 +37,5 @@
       <a class="<%= currentPath.startsWith('/blog') ? 'active' : '' %>" href="/blog">Blog</a>
     </nav>
   </div>
+  <div class="nav-backdrop" id="nav-backdrop" hidden aria-hidden="true"></div>
 </header>

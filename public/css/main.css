@@ -43,16 +43,26 @@
   );
   --hero-text-subtle: rgb(255 255 255 / 0.82);
   --nav-active-bg: color-mix(in srgb, var(--theme-3) 16%, transparent);
-  --backdrop-overlay: rgba(0, 0, 0, 0.6);
+  --backdrop-overlay: color-mix(in srgb, var(--theme-1) 40%, transparent);
   --focus-ring: color-mix(in srgb, var(--theme-3) 45%, transparent);
   --input-focus-shadow: color-mix(in srgb, var(--theme-3) 28%, transparent);
-  --shadow: 0 4px 24px color-mix(in srgb, var(--theme-1) 12%, transparent);
-  --shadow-lg: 0 14px 44px color-mix(in srgb, var(--theme-1) 18%, transparent);
+  --shadow: 0 2px 10px color-mix(in srgb, var(--theme-1) 6%, transparent), 0 10px 30px color-mix(in srgb, var(--theme-1) 7%, transparent);
+  --shadow-lg: 0 8px 24px color-mix(in srgb, var(--theme-1) 8%, transparent), 0 24px 64px color-mix(in srgb, var(--theme-1) 14%, transparent);
   --success: #047857;
   --error: #b91c1c;
-  --radius: 14px;
+  --radius-sm: 11px;
+  --radius: 18px;
+  --radius-lg: 28px;
+  --radius-full: 999px;
   --tap-min: 44px;
   --font: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Glass / floating-nav surfaces (Apple HIG-style translucency + blur) */
+  --glass-bg: color-mix(in srgb, var(--surface) 68%, transparent);
+  --glass-bg-strong: color-mix(in srgb, var(--surface) 82%, transparent);
+  --glass-border: color-mix(in srgb, #ffffff 55%, var(--border));
+  --glass-blur: blur(20px) saturate(1.6);
+  --glass-shadow: 0 1px 1px color-mix(in srgb, #ffffff 60%, transparent) inset, 0 8px 30px color-mix(in srgb, var(--theme-1) 14%, transparent);
 }
 
 *,
@@ -123,19 +133,27 @@ img {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: color-mix(in srgb, var(--surface) 92%, var(--theme-4));
-  border-bottom: 1px solid var(--border);
-  box-shadow: 0 1px 0 color-mix(in srgb, var(--theme-1) 6%, transparent);
+  background: transparent;
+  padding-top: max(0.65rem, env(safe-area-inset-top));
+  padding-left: max(0.75rem, env(safe-area-inset-left));
+  padding-right: max(0.75rem, env(safe-area-inset-right));
 }
 
 .nav-inner {
+  position: relative;
+  z-index: 45;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  padding-top: max(0.65rem, env(safe-area-inset-top));
-  padding-bottom: 0.65rem;
+  padding: 0.55rem 0.85rem;
+  background: var(--glass-bg-strong);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  box-shadow: var(--glass-shadow);
 }
 
 .brand {
@@ -223,15 +241,15 @@ img {
   width: var(--tap-min);
   height: var(--tap-min);
   padding: 0;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--surface);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--surface) 55%, transparent);
   cursor: pointer;
   transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .nav-toggle:hover {
-  background: var(--bg);
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
 }
 
 .nav-toggle__bar {
@@ -267,18 +285,25 @@ body.nav-open .nav-toggle__bar:nth-child(3) {
 
 body.nav-open .site-nav {
   display: flex;
-  position: relative;
   z-index: 50;
 }
 
 @media (max-width: 767px) {
   body.nav-open .site-nav {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-lg);
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    right: 0;
+    width: auto;
+    order: initial;
     padding: 0.4rem;
-    margin-top: 0.4rem;
+    margin-top: 0;
+    background: var(--glass-bg-strong);
+    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--glass-shadow);
   }
 }
 
@@ -391,6 +416,8 @@ body.nav-open .site-nav {
   padding: 0;
   border: 0;
   background: var(--backdrop-overlay);
+  -webkit-backdrop-filter: blur(6px) saturate(1.1);
+  backdrop-filter: blur(6px) saturate(1.1);
   cursor: pointer;
 }
 
@@ -451,7 +478,7 @@ body.nav-open .nav-backdrop {
 /* ——— Hero (home) ——— */
 
 .hero {
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   padding: clamp(1.5rem, 5vw, 2.25rem);
   margin-bottom: 1.5rem;
 }
@@ -509,9 +536,9 @@ body.nav-open .nav-backdrop {
   align-items: center;
   justify-content: center;
   min-height: var(--tap-min);
-  padding: 0.65rem 1.25rem;
+  padding: 0.65rem 1.4rem;
   border: none;
-  border-radius: 12px;
+  border-radius: var(--radius-full);
   font-family: inherit;
   font-size: 1rem;
   font-weight: 600;
@@ -959,7 +986,7 @@ code {
   width: 200px;
   height: 250px;
   background: var(--bg-hero);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -1827,14 +1854,17 @@ a.contact-info-value:hover {
 
 .whatsapp-bubble {
   position: relative;
-  background: #fff;
+  background: var(--glass-bg-strong);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
   color: #111827;
   padding: 0.6rem 0.95rem;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   font-size: 0.85rem;
   font-weight: 600;
   white-space: nowrap;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+  box-shadow: var(--glass-shadow);
   transform-origin: right center;
   transform: translateX(55px) scale(0.3);
   opacity: 0;
@@ -1852,7 +1882,7 @@ a.contact-info-value:hover {
   transform: translateY(-50%);
   border-width: 6px 0 6px 6px;
   border-style: solid;
-  border-color: transparent transparent transparent #fff;
+  border-color: transparent transparent transparent color-mix(in srgb, var(--surface) 82%, transparent);
 }
 
 .whatsapp-bubble.is-visible {
