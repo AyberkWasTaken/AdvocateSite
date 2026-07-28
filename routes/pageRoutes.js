@@ -1,7 +1,15 @@
 import express from "express";
 import { listPosts, getPostBySlug } from "../utils/blogStore.js";
 import { BLOG_CATEGORIES, categoryLabel } from "../utils/blogCategories.js";
+import { parseFaq } from "../utils/faq.js";
 import { isMailConfigured, sendContactEmail } from "../utils/mail.js";
+
+function getRelatedPosts(allPosts, current, limit = 3) {
+  const others = allPosts.filter((p) => p.id !== current.id);
+  const sameCategory = others.filter((p) => p.category && p.category === current.category);
+  const rest = others.filter((p) => !sameCategory.includes(p));
+  return [...sameCategory, ...rest].slice(0, limit);
+}
 
 const router = express.Router();
 
@@ -120,11 +128,19 @@ router.get("/blog/:slug", async (req, res) => {
     });
   }
 
+  const allPosts = await listPosts();
+  const relatedPosts = getRelatedPosts(allPosts, post).map((p) => ({
+    ...p,
+    categoryLabel: categoryLabel(p.category)
+  }));
+
   res.render("pages/blog-detail", {
     title: post.title,
     description: post.summary,
     noindex: false,
     post: { ...post, categoryLabel: categoryLabel(post.category) },
+    faqItems: parseFaq(post.faq),
+    relatedPosts,
     currentPath: req.path
   });
 });

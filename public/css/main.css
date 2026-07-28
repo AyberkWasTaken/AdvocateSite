@@ -1419,6 +1419,73 @@ a.contact-info-value:hover {
   margin-bottom: 0;
 }
 
+/* ——— Post FAQ ——— */
+
+.post-faq {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.post-faq__heading {
+  margin: 0 0 1rem;
+  font-size: clamp(1.1rem, 3vw, 1.3rem);
+  font-weight: 700;
+  color: var(--theme-1);
+  letter-spacing: -0.02em;
+}
+
+.post-faq__item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.6rem;
+  background: color-mix(in srgb, var(--surface) 88%, var(--theme-4));
+}
+
+.post-faq__item:last-child {
+  margin-bottom: 0;
+}
+
+.post-faq__item summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--theme-1);
+  list-style: none;
+}
+
+.post-faq__item summary::-webkit-details-marker {
+  display: none;
+}
+
+.post-faq__item summary::before {
+  content: "+";
+  display: inline-block;
+  width: 1.1rem;
+  color: var(--theme-3);
+  font-weight: 700;
+}
+
+.post-faq__item[open] summary::before {
+  content: "–";
+}
+
+.post-faq__item p {
+  margin: 0.6rem 0 0 1.1rem;
+  color: var(--text);
+  line-height: 1.65;
+}
+
+/* ——— Related posts (blog detail) ——— */
+
+.related-posts {
+  margin-top: 2.5rem;
+}
+
+.related-posts__heading {
+  margin-bottom: 1rem;
+}
+
 /* ——— 404 page ——— */
 
 .error-page {
@@ -1653,6 +1720,12 @@ a.contact-info-value:hover {
   font-size: .875rem;
   font-weight: 600;
   color: var(--text);
+}
+
+.admin-optional {
+  font-weight: 400;
+  color: var(--muted);
+  font-size: .8rem;
 }
 
 .admin-form input,

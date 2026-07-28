@@ -25,6 +25,7 @@ function mapPost(row) {
     summary: row.summary,
     content: row.content,
     category: row.category,
+    faq: row.faq,
     publishedAt: row.published_at,
   };
 }
@@ -62,14 +63,14 @@ async function getPostBySlug(slug) {
   return mapPost(data);
 }
 
-async function createPost({ title, summary, content, category }) {
+async function createPost({ title, summary, content, category, faq }) {
   const slug = createSlug(title);
   const id = `${Date.now()}`;
   const publishedAt = new Date().toISOString().slice(0, 10);
 
   const { data, error } = await supabase
     .from("blog_posts")
-    .insert({ id, title, slug, summary, content, category, published_at: publishedAt })
+    .insert({ id, title, slug, summary, content, category, faq, published_at: publishedAt })
     .select()
     .single();
 
@@ -81,12 +82,12 @@ async function createPost({ title, summary, content, category }) {
   return mapPost(data);
 }
 
-async function updatePost(id, { title, summary, content, category }) {
+async function updatePost(id, { title, summary, content, category, faq }) {
   const slug = createSlug(title);
 
   const { data, error } = await supabase
     .from("blog_posts")
-    .update({ title, slug, summary, content, category })
+    .update({ title, slug, summary, content, category, faq })
     .eq("id", id)
     .select()
     .single();

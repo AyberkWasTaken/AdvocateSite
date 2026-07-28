@@ -14,7 +14,39 @@
         <% } %>
       <% }) %>
     </div>
+
+    <% if (faqItems.length > 0) { %>
+    <div class="post-faq">
+      <h2 class="post-faq__heading">Sık Sorulan Sorular</h2>
+      <% faqItems.forEach((item) => { %>
+      <details class="post-faq__item">
+        <summary><%= item.question %></summary>
+        <p><%= item.answer %></p>
+      </details>
+      <% }) %>
+    </div>
+    <% } %>
   </article>
+
+  <% if (relatedPosts.length > 0) { %>
+  <section class="related-posts">
+    <h2 class="section-heading related-posts__heading">İlgili Yazılar</h2>
+    <div class="grid three">
+      <% relatedPosts.forEach((rp) => { %>
+      <article class="card card--post">
+        <p class="card__meta">
+          <%= rp.publishedAt %>
+          <% if (rp.categoryLabel) { %> · <span class="category-pill"><%= rp.categoryLabel %></span><% } %>
+        </p>
+        <h3 class="card__title"><%= rp.title %></h3>
+        <p><%= rp.summary %></p>
+        <a class="card__link" href="/blog/<%= rp.slug %>">Devamını Oku</a>
+      </article>
+      <% }) %>
+    </div>
+  </section>
+  <% } %>
+
   <p><a class="link-arrow" href="/blog">&larr; Tüm yazılar</a></p>
 </main>
 <%- include("../partials/footer") %>

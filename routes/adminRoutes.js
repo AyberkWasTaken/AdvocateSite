@@ -57,7 +57,7 @@ router.get("/", requireAdmin, async (req, res) => {
 });
 
 router.post("/posts", requireAdmin, async (req, res) => {
-  const { title, summary, content, category } = req.body;
+  const { title, summary, content, category, faq } = req.body;
   if (!title || !summary || !content || !category) {
     return res.status(400).render("admin/dashboard", {
       title: "Admin Panel",
@@ -65,13 +65,13 @@ router.post("/posts", requireAdmin, async (req, res) => {
       noindex: true,
       posts: withCategoryLabels(await listPosts()),
       categories: BLOG_CATEGORIES,
-      error: "Tüm alanlar zorunludur.",
-      formValues: { title, summary, content, category },
+      error: "Başlık, konu, özet ve içerik zorunludur.",
+      formValues: { title, summary, content, category, faq },
       currentPath: "/admin"
     });
   }
   try {
-    await createPost({ title, summary, content, category });
+    await createPost({ title, summary, content, category, faq: faq || null });
     res.redirect("/admin");
   } catch (err) {
     res.status(400).render("admin/dashboard", {
@@ -81,7 +81,7 @@ router.post("/posts", requireAdmin, async (req, res) => {
       posts: withCategoryLabels(await listPosts()),
       categories: BLOG_CATEGORIES,
       error: err.message,
-      formValues: { title, summary, content, category },
+      formValues: { title, summary, content, category, faq },
       currentPath: "/admin"
     });
   }
@@ -102,21 +102,21 @@ router.get("/posts/:id/edit", requireAdmin, async (req, res) => {
 });
 
 router.post("/posts/:id/edit", requireAdmin, async (req, res) => {
-  const { title, summary, content, category } = req.body;
+  const { title, summary, content, category, faq } = req.body;
   if (!title || !summary || !content || !category) {
     const post = await getPostById(req.params.id);
     return res.status(400).render("admin/edit", {
       title: "Yazıyı Düzenle",
       description: "",
       noindex: true,
-      post: { ...post, title, summary, content, category },
+      post: { ...post, title, summary, content, category, faq },
       categories: BLOG_CATEGORIES,
-      error: "Tüm alanlar zorunludur.",
+      error: "Başlık, konu, özet ve içerik zorunludur.",
       currentPath: "/admin"
     });
   }
   try {
-    await updatePost(req.params.id, { title, summary, content, category });
+    await updatePost(req.params.id, { title, summary, content, category, faq: faq || null });
     res.redirect("/admin");
   } catch (err) {
     const post = await getPostById(req.params.id);
@@ -124,7 +124,7 @@ router.post("/posts/:id/edit", requireAdmin, async (req, res) => {
       title: "Yazıyı Düzenle",
       description: "",
       noindex: true,
-      post: { ...post, title, summary, content, category },
+      post: { ...post, title, summary, content, category, faq },
       categories: BLOG_CATEGORIES,
       error: err.message,
       currentPath: "/admin"

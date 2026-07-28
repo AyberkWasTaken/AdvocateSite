@@ -36,6 +36,10 @@
       İçerik
       <textarea name="content" rows="14" required><%= post.content %></textarea>
     </label>
+    <label>
+      Sık Sorulan Sorular <span class="admin-optional">(opsiyonel)</span>
+      <textarea name="faq" rows="8" placeholder="Soru&#10;Cevap&#10;&#10;Başka bir soru&#10;Cevabı&#10;&#10;Her soru-cevap arasına boş satır bırakın."><%= post.faq || '' %></textarea>
+    </label>
     <div class="admin-edit-actions">
       <a href="/admin" class="btn-view">İptal</a>
       <button type="submit" class="btn-publish">Değişiklikleri Kaydet</button>

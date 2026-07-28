@@ -42,6 +42,10 @@
           İçerik
           <textarea name="content" rows="10" required placeholder="Yazı içeriği. Paragraf için boş satır bırakın."><%= formValues.content || '' %></textarea>
         </label>
+        <label>
+          Sık Sorulan Sorular <span class="admin-optional">(opsiyonel)</span>
+          <textarea name="faq" rows="6" placeholder="Soru&#10;Cevap&#10;&#10;Başka bir soru&#10;Cevabı&#10;&#10;Her soru-cevap arasına boş satır bırakın."><%= formValues.faq || '' %></textarea>
+        </label>
         <button type="submit" class="btn-publish">Yazıyı Yayınla</button>
       </form>
     </section>
@@ -75,6 +79,10 @@
             <p class="admin-post-summary"><%= post.summary %></p>
             <hr class="admin-post-divider" />
             <div class="admin-post-content"><%= post.content %></div>
+            <% if (post.faq) { %>
+            <hr class="admin-post-divider" />
+            <div class="admin-post-content"><strong>SSS:</strong><br /><%= post.faq %></div>
+            <% } %>
           </div>
         </li>
         <% }) %>
