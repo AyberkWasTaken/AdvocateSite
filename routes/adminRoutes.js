@@ -25,7 +25,8 @@ router.get("/login", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
-  const { username, password } = req.body;
+  const username = (req.body.username || "").trim();
+  const password = (req.body.password || "").trim();
   if (username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD) {
     req.session.isAdmin = true;
     return res.redirect("/admin");
